@@ -1,0 +1,22 @@
+<form [formGroup]="addJediForm" (ngSubmit)="addJediForm.valid && addJedi()">
+  <h2>Add Jedi</h2>
+  <div class="form-group row">
+    <label for="jediNameInput" class="col-sm-2">Name</label>
+    <div class="col-sm-10">
+      <input id="jediNameInput" formControlName="name" class="form-control" name="name" type="text"/>
+      <div *ngIf="addJediForm.get('name')?.invalid && addJediForm.get('name')?.touched" class="form-text">
+        Vul een naam in.
+      </div>
+
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="jediMedichlorianCountInput" class="col-sm-2">Midichlorian</label>
+    <div class="col-sm-10">
+      <input id="jediMedichlorianCountInput" formControlName="midichlorian" class="form-control" name="midichlorianCount" type="number" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <button [disabled]="!addJediForm.valid" type="submit" class="btn btn-success">Add Jedi</button>
+  </div>
+</form>

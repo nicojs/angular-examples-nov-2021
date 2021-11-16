@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Midichlorian</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let jedi of jedis" [class.bg-warning]="isSelected(jedi)">
+      <td *ngIf="isEdit(jedi)">
+        <input name="jediNameInput" [(ngModel)]="jedi.name" />
+      </td>
+      <td *ngIf="!isEdit(jedi)">{{ jedi.name | jediMaster }}</td>
+      <td>{{ jedi.midichlorian | midichlorian }}</td>
+      <td><button (click)="toggleEdit(jedi)">Edit</button></td>
+    </tr>
+  </tbody>
+</table>

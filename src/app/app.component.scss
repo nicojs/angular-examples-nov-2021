@@ -8,3 +8,8 @@ button {
 .now {
   background-color: yellowgreen;
 }
+
+
+input.ng-invalid.ng-touched {
+  border: 2px red solid;
+}

@@ -1,4 +1,4 @@
-export class Jedi {
-  constructor(public name: string, public midichlorianCount: number){}
-  fight(jedi: Jedi) {}
+export interface Jedi {
+  name: string;
+  midichlorian: number | undefined;
 }

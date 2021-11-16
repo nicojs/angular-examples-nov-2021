@@ -21,4 +21,9 @@ describe('midichlorian pipe', () => {
     const output = sut.transform(42, 'short');
     expect(output).toBe('42 mc');
   });
+
+  it('should return undefined when undefined is provided', () => {
+    const output = sut.transform(undefined, 'short');
+    expect(output).toBe(undefined);
+  });
 });
