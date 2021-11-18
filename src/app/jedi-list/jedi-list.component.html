@@ -12,7 +12,7 @@
       </td>
       <td *ngIf="!isEdit(jedi)">{{ jedi.name | jediMaster }}</td>
       <td>{{ jedi.midichlorian | midichlorian }}</td>
-      <td><button (click)="toggleEdit(jedi)">Edit</button></td>
+      <td><button class="sw-edit-jedi" (click)="toggleEdit(jedi)">Edit</button></td>
     </tr>
   </tbody>
 </table>
