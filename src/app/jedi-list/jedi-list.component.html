@@ -6,7 +6,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let jedi of jedis" [class.bg-warning]="isSelected(jedi)">
+    <tr class="jedi" *ngFor="let jedi of jedis" [class.bg-warning]="isSelected(jedi)">
       <td *ngIf="isEdit(jedi)">
         <input name="jediNameInput" [(ngModel)]="jedi.name" />
       </td>

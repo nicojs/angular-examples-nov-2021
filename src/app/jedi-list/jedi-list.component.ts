@@ -6,10 +6,7 @@ import { Jedi } from '../model/jedi';
   templateUrl: './jedi-list.component.html',
   styleUrls: ['./jedi-list.component.scss']
 })
-export class JediListComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+export class JediListComponent {
 
   @Input()
   jedis: Jedi[] = [];
