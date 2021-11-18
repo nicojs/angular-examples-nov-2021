@@ -58,14 +58,43 @@ describe('jedi-list component', () => {
     });
 
     it('should show an input when the edit button is clicked', async () => {
+      // Arrange
       const editJediButton = element.querySelector<HTMLElement>('tr.jedi:nth-child(2) .sw-edit-jedi');
+
+      // Act
       editJediButton!.click();
       sut.detectChanges();
       await sut.whenStable();
 
+      // Assert
       const input = element.querySelector<HTMLInputElement>('tr.jedi:nth-child(2) input[name="jediNameInput"]')
       expect(input).toBeDefined();
       expect(input!.value).toEqual('Luke');
+    });
+
+    it('should allow to edit a jedi using the edit button', async () => {
+      // Arrange
+      const editJediButton = element.querySelector<HTMLElement>('tr.jedi:nth-child(2) .sw-edit-jedi')!;
+      editJediButton!.click();
+      sut.detectChanges();
+      await sut.whenStable();
+      const input = element.querySelector<HTMLInputElement>('tr.jedi:nth-child(2) input[name="jediNameInput"]')!;
+
+      // Act
+      input.value = 'Anakin';
+      // This event is needed to signal "ngModel" that a change was made and to be reflected back to the model
+      // Also see https://medium.com/@sevcsik/testing-ngmodel-in-angular-2-d9c79923f973
+      input.dispatchEvent(new Event('input'));
+      sut.detectChanges();
+      await sut.whenStable();
+      editJediButton.click();
+      sut.detectChanges();
+      await sut.whenStable();
+      const jediNameTableData = element.querySelector<HTMLElement>('tr.jedi:nth-child(2) td:first-child');
+
+      // Assert
+      expect(jediNameTableData).toBeDefined();
+      expect(jediNameTableData!.innerText).toEqual('Master Anakin');
     });
   });
 });
