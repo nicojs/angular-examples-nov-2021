@@ -1,0 +1,29 @@
+{
+  "jedis": [
+    {
+      "id": 0,
+      "name": "Qui-Gon Jinn",
+      "midichlorian": 10000
+    },
+    {
+      "id": 1,
+      "name": "Yaddle",
+      "midichlorian": 11300
+    },
+    {
+      "id": 2,
+      "name": "Yoda",
+      "midichlorian": 17800.7
+    },
+    {
+      "name": "Nico",
+      "midichlorian": 200,
+      "id": 3
+    },
+    {
+      "name": "Jimmy",
+      "midichlorian": 10,
+      "id": 4
+    }
+  ]
+}

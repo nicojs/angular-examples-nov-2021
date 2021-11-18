@@ -3,6 +3,7 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { JediListComponent } from './jedi-list/jedi-list.component';
 import { Jedi } from './model/jedi';
 import { Todo } from './model/todo';
+import { JediService } from './services/jedi.service';
 
 @Component({
   selector: 'sw-root',
@@ -10,10 +11,12 @@ import { Todo } from './model/todo';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  ngOnInit(): void {
-    console.log('getting jedi from server')
-  }
+  constructor(private jediService: JediService) {}
 
+  async ngOnInit(): Promise<void> {
+    console.log('getting jedi from server');
+    this.allJedis = await this.jediService.getJedis();
+  }
 
   public title = 'Starwars';
   public kleur = 'red';
@@ -25,24 +28,20 @@ export class AppComponent implements OnInit {
     this.kleur = kleurInput.value;
     console.log('set kleur', this.kleur);
   }
-  allJedis: Jedi[] = [
-    { name: 'Qui-Gon Jinn', midichlorian: 10000 },
-    { name: 'Yaddle', midichlorian: 11300 },
-    { name: 'Yoda', midichlorian: undefined },
-  ];
+  allJedis: Jedi[] | undefined;
 
-  addToAllJedi(newJedi: Jedi){
-    this.allJedis.push(newJedi);
+  async saveJedi(newJedi: Jedi) {
+    const jediAdded = await this.jediService.addJedi(newJedi);
+    this.allJedis?.push(jediAdded);
   }
 
   selectedJedi: Jedi | undefined;
 
   next() {
-    this.selectedJedi = this.allJedis[0];
-    this.jediListComponent?.selectJedi(this.selectedJedi);
+    this.selectedJedi = this.allJedis?.[0];
+    if (this.selectedJedi) {
+      this.jediListComponent?.selectJedi(this.selectedJedi);
+    }
   }
 
-  previous() {
-
-  }
 }

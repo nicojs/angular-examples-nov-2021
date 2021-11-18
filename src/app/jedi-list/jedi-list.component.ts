@@ -1,15 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Jedi } from '../model/jedi';
+import { JediService } from '../services/jedi.service';
 
 @Component({
   selector: 'sw-jedi-list',
   templateUrl: './jedi-list.component.html',
-  styleUrls: ['./jedi-list.component.scss']
+  styleUrls: ['./jedi-list.component.scss'],
 })
 export class JediListComponent {
 
+  constructor(service: JediService){
+    console.log(service);
+  }
+
   @Input()
-  jedis: Jedi[] = [];
+  jedis: Jedi[] | undefined;
 
   private jediSelected = new Set<Jedi>();
   public selectJedi(jedi: Jedi) {
