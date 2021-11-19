@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Jedi } from '../model/jedi';
 import { JediService } from '../services/jedi.service';
@@ -8,20 +8,16 @@ import { JediService } from '../services/jedi.service';
   templateUrl: './jedi-list.component.html',
   styleUrls: ['./jedi-list.component.scss'],
 })
-export class JediListComponent implements OnInit {
+export class JediListComponent implements OnInit, OnChanges {
 
   public searchForm = new FormGroup({
-    search: new FormControl('')
-  })
-
-  constructor(service: JediService){
-    console.log(service);
-  }
+    search: new FormControl(''),
+  });
 
   public ngOnInit(): void {
     this.searchForm.valueChanges.subscribe((value: { search: string }) => {
       console.log(value);
-      this.jedisFiltered = this.jedis?.filter(jedi => jedi.name.includes(value.search));
+      this.updateJedis();
     });
   }
 
@@ -30,16 +26,28 @@ export class JediListComponent implements OnInit {
   @Input()
   jedis: Jedi[] | undefined;
 
+  private updateJedis() {
+    this.jedisFiltered = this.jedis?.filter((jedi) =>
+    jedi.name.includes(this.searchForm.value.search)
+  );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if('jedis' in changes){
+      this.updateJedis()
+    }
+  }
+
   private jediSelected = new Set<Jedi>();
   public selectJedi(jedi: Jedi) {
-    if(this.jediSelected.has(jedi)){
+    if (this.jediSelected.has(jedi)) {
       this.jediSelected.delete(jedi);
-    }else {
+    } else {
       this.jediSelected.add(jedi);
     }
   }
 
-  public isSelected(jedi: Jedi){
+  public isSelected(jedi: Jedi) {
     return this.jediSelected.has(jedi);
   }
 

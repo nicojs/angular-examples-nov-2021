@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddJediComponent } from './add-jedi.component';
+import { StarwarsMoviesComponent } from './starwars-movies.component';
 
-describe('AddJediComponent', () => {
-  let component: AddJediComponent;
-  let fixture: ComponentFixture<AddJediComponent>;
+describe('StarwarsMoviesComponent', () => {
+  let component: StarwarsMoviesComponent;
+  let fixture: ComponentFixture<StarwarsMoviesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddJediComponent ]
+      declarations: [ StarwarsMoviesComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddJediComponent);
+    fixture = TestBed.createComponent(StarwarsMoviesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

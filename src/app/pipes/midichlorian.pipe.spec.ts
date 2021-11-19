@@ -9,7 +9,7 @@ describe('midichlorian pipe', () => {
   let sut: MidichlorianPipe;
 
   beforeEach(() => {
-    sut = new MidichlorianPipe();
+    sut = new MidichlorianPipe('nl-NL');
   });
 
   it('should postfix with "midichlorians"', () => {

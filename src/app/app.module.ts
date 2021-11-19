@@ -12,6 +12,11 @@ import { AddJediComponent } from './add-jedi/add-jedi.component';
 import { JediListComponent } from './jedi-list/jedi-list.component';
 import { BACKEND_URL } from './tokens';
 import { environment } from 'src/environments/environment';
+import { RouterModule } from '@angular/router';
+import { routes } from './routes';
+import { JediComponent } from './jedi/jedi.component';
+import { MenuComponent } from './menu/menu.component';
+import { MoviesModule } from './movies/movies.module';
 
 registerLocaleData(localeNL);
 
@@ -22,12 +27,16 @@ registerLocaleData(localeNL);
     JediMasterPipe,
     AddJediComponent,
     JediListComponent,
+    JediComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(routes),
+    MoviesModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'nl-NL' },

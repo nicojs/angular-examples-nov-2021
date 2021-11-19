@@ -1,0 +1,22 @@
+<h1 class="display-1" [style.color]="kleur">Hello {{ title }}</h1>
+
+<div class="container">
+  <div class="col">
+    <div class="form-group row">
+      <label for="kleurInput" class="col-sm-2 col-form-label">Kleur</label>
+      <div class="col-sm-10">
+        <input
+          #colorInput
+          type="text"
+          class="form-control"
+          (keyup)="setKleur(colorInput)"
+        />
+      </div>
+    </div>
+
+    <button (click)="next()">Next</button>
+    <sw-jedi-list [jedis]="allJedis"></sw-jedi-list>
+
+    <sw-add-jedi (jediAdd)="saveJedi($event)"></sw-add-jedi>
+  </div>
+</div>

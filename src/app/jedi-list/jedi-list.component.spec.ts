@@ -1,5 +1,7 @@
+import { SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Jedi } from '../model/jedi';
 import { JediMasterPipe } from '../pipes/jedi-master.pipe';
 import { MidichlorianPipe } from '../pipes/midichlorian.pipe';
 
@@ -13,7 +15,7 @@ describe('jedi-list component', () => {
     // Arrange
     await TestBed.configureTestingModule({
       declarations: [MidichlorianPipe, JediMasterPipe, JediListComponent],
-      imports: [FormsModule]
+      imports: [FormsModule, ReactiveFormsModule]
     }).compileComponents();
     sut = TestBed.createComponent(JediListComponent);
     element = sut.nativeElement;
@@ -29,9 +31,7 @@ describe('jedi-list component', () => {
 
   it('should show a single jedi when the jedis has 1 jedi', async () => {
     // Act
-    sut.componentInstance.jedis = [{ name: 'Yoda', midichlorian: 17800 }];
-    sut.detectChanges();
-    await sut.whenStable();
+    await setJedis([{ name: 'Yoda', midichlorian: 17800 }]);
 
     // Assert
     const tableRows = element.querySelectorAll<HTMLElement>('tr.jedi');
@@ -48,13 +48,11 @@ describe('jedi-list component', () => {
 
   describe('with 3 jedis', () => {
     beforeEach(async () => {
-      sut.componentInstance.jedis = [
+      await setJedis([
         { name: 'Yoda', midichlorian: 17800 },
         { name: 'Luke', midichlorian: 14500 },
         { name: 'Obi-Wan', midichlorian: 13400 },
-      ];
-      sut.detectChanges();
-      await sut.whenStable();
+      ]);
     });
 
     it('should show an input when the edit button is clicked', async () => {
@@ -97,4 +95,13 @@ describe('jedi-list component', () => {
       expect(jediNameTableData!.innerText).toEqual('Master Anakin');
     });
   });
+  async function setJedis(jedis: Jedi[]) {
+    sut.componentInstance.jedis = jedis;
+    sut.componentInstance.ngOnChanges({
+      jedis: new SimpleChange('', '', true)
+    });
+    sut.detectChanges();
+    await sut.whenStable();
+  }
 });
+
