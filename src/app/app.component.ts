@@ -11,6 +11,7 @@ import { JediService } from './services/jedi.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+
   constructor(private jediService: JediService) {}
 
   async ngOnInit(): Promise<void> {

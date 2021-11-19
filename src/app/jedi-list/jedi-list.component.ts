@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Jedi } from '../model/jedi';
 import { JediService } from '../services/jedi.service';
 
@@ -7,11 +8,24 @@ import { JediService } from '../services/jedi.service';
   templateUrl: './jedi-list.component.html',
   styleUrls: ['./jedi-list.component.scss'],
 })
-export class JediListComponent {
+export class JediListComponent implements OnInit {
+
+  public searchForm = new FormGroup({
+    search: new FormControl('')
+  })
 
   constructor(service: JediService){
     console.log(service);
   }
+
+  public ngOnInit(): void {
+    this.searchForm.valueChanges.subscribe((value: { search: string }) => {
+      console.log(value);
+      this.jedisFiltered = this.jedis?.filter(jedi => jedi.name.includes(value.search));
+    });
+  }
+
+  jedisFiltered: Jedi[] | undefined;
 
   @Input()
   jedis: Jedi[] | undefined;

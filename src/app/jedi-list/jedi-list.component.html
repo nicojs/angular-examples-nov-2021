@@ -1,4 +1,13 @@
 
+<form [formGroup]="searchForm">
+  <div class="form-group row">
+    <label class="col-md-2 col-sm-4" for="searchInput">Zoeken</label>
+    <div class="col-sm-8 col-md-10">
+      <input id="searchInput" class="form-control" formControlName="search">
+    </div>
+  </div>
+</form>
+
 <table *ngIf="jedis; else loading" class="table">
   <thead>
     <tr>
@@ -7,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr class="jedi" *ngFor="let jedi of jedis" [class.bg-warning]="isSelected(jedi)">
+    <tr class="jedi" *ngFor="let jedi of jedisFiltered" [class.bg-warning]="isSelected(jedi)">
       <td *ngIf="isEdit(jedi)">
         <input name="jediNameInput" [(ngModel)]="jedi.name" />
       </td>
